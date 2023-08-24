@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables for visually impaired users</title>
+    <link rel="stylesheet" href="../HTML-TABLE/summary.css">
+</head>
+<body>
+    <h1>Tables for visually impaired users</h1>
+
+    <p>
+        This section of the article provides further techniques for making tables as accessible as possible.
+
+     Using column and row headers
+     Screen readers will identify all headers and use them to make programmatic associations between those headers and the cells they relate to. The combination of column and row headers will identify and interpret the data in each cell so that screen reader users can interpret the table similarly to how a sighted user does.
+
+
+    </p>
+
+    <h1>
+        The scope attribute
+    </h1>
+
+    <p>
+        A new topic for this article is the scope attribute, which can be added to the 'th' element to tell screen readers exactly what cells the header is a header for — is it a header for the row it is in, or the column, for example? Looking back to our spending record example from earlier on, you could unambiguously define the column headers as column headers like this:
+    </p>
+
+    <thead>
+        <tr>
+          <th scope="col">Purchase</th>
+          <th scope="col">Location</th>
+          <th scope="col">Date</th>
+          <th scope="col">Evaluation</th>
+          <th scope="col">Cost (€)</th>
+        </tr>
+    </thead>
+      
+
+    <p>
+        And each row could have a header defined like this (if we added row headers as well as column headers):
+    </p>
+
+    <tr>
+        <th scope="row">Haircut</th>
+        <td>Hairdresser</td>
+        <td>12/09</td>
+        <td>Great idea</td>
+        <td>30</td>
+    </tr>
+
+    <p>
+        screen readers will recognize markup structured like this, and allow their users to read out the entire column or row at once, for example
+        scope has two more possible values — colgroup and rowgroup. These are used for headings that sit over the top of multiple columns or rows. If you look back at the "Items Sold August 2016" table at the start of this section of the article, you'll see that the "Clothes" cell sits above the "Trousers", "Skirts", and "Dresses" cells. All of these cells should be marked up as headers ("th"), but "Clothes" is a heading that sits over the top and defines the other three subheadings. "Clothes" therefore should get an attribute of scope="colgroup", whereas the others would get an attribute of scope="col".
+    </p>
+
+    <h1>
+        The id and headers attributes
+    </h1>
+
+    <p>
+        An alternative to using the scope attribute is to use id and headers attributes to create associations between headers and cells. The way they are used is as follows:
+
+        You add a unique id to each "th" element.
+        You add a headers attribute to each "td" element. Each headers attribute has to contain a list of the ids of all the "th" elements that act as a header for that cell, separated by spaces.
+        This gives your HTML table an explicit definition of the position of each cell in the table, defined by the header(s)   for each column and row it is part of, kind of like a spreadsheet. For it to work well, the table really needs   both column and row headers.
+
+       Returning to our spending costs example, the previous two snippets could be rewritten like this:
+    </p>
+
+    <thead>
+        <tr>
+          <th id="purchase">Purchase</th>
+          <th id="location">Location</th>
+          <th id="date">Date</th>
+          <th id="evaluation">Evaluation</th>
+          <th id="cost">Cost (€)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+          <th id="haircut">Haircut</th>
+          <td headers="location haircut">Hairdresser</td>
+          <td headers="date haircut">12/09</td>
+          <td headers="evaluation haircut">Great idea</td>
+          <td headers="cost haircut">30</td>
+        </tr>
+      
+        …
+    </tbody>
+
+    <p>
+        Note: This method creates very precise associations between headers and data cells but it uses a lot more markup and does not leave any room for errors. The scope approach is usually enough for most tables.
+    </p>
+
+
+
+    <a href="../HTML-TABLE/summary.html">Items sold summary</a>
+      
+      
+</body>
+</html>
